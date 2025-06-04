@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Etapa 2 - User’s Perception</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 140px;
+    }
+
+    .flow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffffaa;
+      border-radius: 8px;
+    }
+
+    .selection {
+      background-color: #f0f8ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      padding: 10px 20px;
+      background-color: #add8e6;
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .next-button:hover {
+      background-color: #90c7e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-start"></div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Decision Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">2</div>
+      <div class="step-label">User’s Perception</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">Simulation Params</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">5</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">6</div>
+      <div class="step-label">Performance?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">7</div>
+      <div class="step-label">Cost/Benefit</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">8</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">9</div>
+      <div class="step-label">Objectives?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-end"></div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <h2>Directive Variables</h2>
+    <div class="selection" id="selection-Purpose_1"></div>
+    <div class="selection" id="selection-Purpose_2"></div>
+    <div class="selection" id="selection-Target_passenger"></div>
+    <div class="selection" id="selection-Service_Hour_1"></div>
+    <div class="selection" id="selection-Service_Hour_2"></div>
+    <div class="selection" id="selection-Service_Hour_3"></div>
+  </div>
+
+  <button class="next-button" onclick="window.location.href='7_users_flexibility_perception.html'">NEXT</button>
+
+<script>
+  const Purpose_1Map = {
+    "reduce_operational_cost": "Reduce operational costs/Reduce pollution",
+    "be_mobility_alternative": "Be a mobility alternative",
+    "serve_population_in_need": "Serve the population in need",
+    "Feed_other_transportation_systems": "Feed other transportation systems",
+    "Complement_existing_PT_gaps": "Complement existing PT gaps",
+    "Provide_transport_in_rural_areas": "Provide transport in rural areas"
+  };
+
+  const Purpose_2Map = Purpose_1Map;
+
+  const Target_passengerMap = {
+    "general_passengers": "General Passengers",
+    "population_in_need": "Population in Need",
+    "time_sensitive_passengers": "Time Sensitive Passengers"
+  };
+
+  const Service_Hour_1Map = {
+    "conventional_business_hour": "Conventional Transport Business Hours",
+    "off_peak_only": "Off-peak hours only",
+    "peak_hours_only": "Peak hours only",
+    "specific_time_window": "Specific time window",
+    "night_services": "Night Services"
+  };
+
+  const Service_Hour_2Map = Service_Hour_1Map
+  const Service_Hour_3Map = Service_Hour_1Map
+
+
+  const Purpose_1 = localStorage.getItem('Purpose_1');
+  const Purpose_2 = localStorage.getItem('Purpose_2');
+  const Target_passenger = localStorage.getItem('Target_passenger');
+  const Service_Hour_1 = localStorage.getItem('Service_Hour_1');
+  const Service_Hour_2 = localStorage.getItem('Service_Hour_2');
+  const Service_Hour_3 = localStorage.getItem('Service_Hour_3');
+
+  document.getElementById('selection-Purpose_1').innerText =
+    "Purpose 1: " + (Purpose_1Map[Purpose_1] || "Não selecionado");
+
+  document.getElementById('selection-Purpose_2').innerText =
+    "Purpose 2: " + (Purpose_2Map[Purpose_2] || "Não selecionado");
+
+  document.getElementById('selection-Target_passenger').innerText =
+    "Target Passengers: " + (Target_passengerMap[Target_passenger] || "Não selecionado");
+
+  document.getElementById('selection-Service_Hour_1').innerText =
+    "Service Hours: " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
+
+  if (Service_Hour_1Map[Service_Hour_1]) {
+  document.getElementById('selection-Service_Hour_1').innerText =
+    "Service Hours: " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
+      } 
+
+  if (Service_Hour_2Map[Service_Hour_2]) {
+  document.getElementById('selection-Service_Hour_2').innerText =
+    "Service Hours: " + (Service_Hour_2Map[Service_Hour_2] || "Não selecionado");
+      } 
+
+  if (Service_Hour_3Map[Service_Hour_3]) {
+  document.getElementById('selection-Service_Hour_3').innerText =
+    "Service Hours: " + (Service_Hour_3Map[Service_Hour_3] || "Não selecionado");
+      } 
+</script>
+
+</body>
+</html>

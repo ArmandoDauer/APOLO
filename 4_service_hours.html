@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etapa 1 - Decision Variables</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 140px;
+      box-sizing: border-box;
+    }
+
+    .flow {
+    /*  position: fixed; */
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .left {
+      flex: 1;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .right {
+      flex: 1;
+      padding-top: 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      background-color: #f9f9f9;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      padding: 10px 20px;
+      background-color: #add8e6;
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .next-button:hover {
+      background-color: #90c7e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-start"></div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">1</div>
+      <div class="step-label">Decision Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">2</div>
+      <div class="step-label">User’s Perception</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">Simulation Params</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">5</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">6</div>
+      <div class="step-label">Performance?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">7</div>
+      <div class="step-label">Cost/Benefit</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">8</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">9</div>
+      <div class="step-label">Objectives?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-end"></div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <div class="left">
+      <h2>Service Hours</h2>
+      <p>
+        Service hours define the specific timeframe during which the DRT service will be operational. This feature plays a critical role in ensuring that the service aligns with its underlying purpose and the motivations driving its implementation. For instance, service hours may be designed to address specific needs, such as peak travel times, commuter schedules, or accessibility for underserved populations. The strategic definition of these hours can significantly influence the system's efficiency and its ability to meet the expectations of the target audience.
+        In cases where resources are limited, such as a constrained fleet size or insufficient funding, service hours can also serve as a mechanism to optimize operational capacity. For example, instead of providing continuous coverage across the entire service area, the system might operate on a segmented schedule. This approach allows specific zones or neighbourhoods to be served during distinct time periods, ensuring that the entire region is covered over the course of the day. Such a strategy can help balance resource constraints with the goal of equitable access, particularly in scenarios where demand varies geographically or temporally.
+        Alternatively, in cases where resources are limited (e.g., a restricted number of vehicles), certain parts of the service area may be served at different times to ensure coverage across the entire region. Below are the features identified through the analysis of real-world cases.
+
+      </p>
+      <p>
+         <ul>
+          <li> <u>Conventional Transport Business Hours:</u> The DRT operates during the same hours as a conventional public transport system. Typically, DRTs functioning under this scheme in regions where a traditional system already exists aim to complement the traditional system's operation, either by serving areas or passengers that cannot be efficiently accommodated or by improving access to the existing system.</li>
+          <li><u>Off-peak hours only: </u>In this case, the DRT operates only during off-peak hours, when demand is lower and potentially insufficient for a traditional system to operate efficiently. DRTs operating during these hours can either supplement the existing transport system or entirely replace it.</li>
+          <li><u>Peak hours only: </u>DRTs operating exclusively during peak hours can help address excess demand that a regular system cannot handle, either by increasing the supply of vehicles and routes or by providing access to high-capacity transport modes. Additionally, in scenarios where these DRTs operate independently, peak hours may be the only viable timeframe for their operation.</li>
+          <li> <u>Specific time windows: </u> The system operates at specific time periods, that may or not be regular. The definition of these operation periods is influenced by the demand, availability of resources, offer of other transportation options, etc.</li>
+          <li><u>Night Services: </u>During nighttime periods, demand is generally very low. As a result, regular transport services often struggle to implement a viable operation, frequently reducing service frequency or, in more extreme cases, ceasing operations entirely. Due to the low demand, DRT operations become a feasible solution for continuing to meet existing mobility needs.</li>
+        </ul> 
+      </p>
+    </div>
+
+    <div class="right">
+      <p>More than one service hour can be selected</p>
+      <label for="Service_Hour_1">Service Hour</label>
+      <select id="Service_Hour_1">
+        <option value="">-- Select a service hour --</option>
+        <option value="conventional_business_hour">Conventional Transport Business Hours</option>
+        <option value="off_peak_only">Off-peak hours only</option>
+        <option value="peak_hours_only">Peak hours only</option>
+        <option value="specific_time_window">Specific time window</option>
+        <option value="night_services">Night Services</option>
+      </select>
+
+      <label for="Service_Hour_2">Service Hour</label>
+      <select id="Service_Hour_2">
+        <option value="">-- Select a service hour --</option>
+        <option value="conventional_business_hour">Conventional Transport Business Hours</option>
+        <option value="off_peak_only">Off-peak hours only</option>
+        <option value="peak_hours_only">Peak hours only</option>
+        <option value="specific_time_window">Specific time window</option>
+        <option value="night_services">Night Services</option>
+      </select>
+
+
+      <label for="Service_Hour_3">Service Hour</label>
+      <select id="Service_Hour_3">
+        <option value="">-- Select a service hour --</option>
+        <option value="conventional_business_hour">Conventional Transport Business Hours</option>
+        <option value="off_peak_only">Off-peak hours only</option>
+        <option value="peak_hours_only">Peak hours only</option>
+        <option value="specific_time_window">Specific time window</option>
+        <option value="night_services">Night Services</option>
+      </select>
+
+<!-- Botão corrigido -->
+<button class="next-button" onclick="saveSelections()">NEXT</button>
+
+<!-- Script deve estar no final do body -->
+<script>
+  function saveSelections() {
+    const Service_Hour_1 = document.getElementById('Service_Hour_1').value;
+
+    if (Service_Hour_1 || Service_Hour_2 || Service_Hour_3) {
+      localStorage.setItem('Service_Hour_1', Service_Hour_1);
+      localStorage.setItem('Service_Hour_2', Service_Hour_2);
+      localStorage.setItem('Service_Hour_2', Service_Hour_3);
+      window.location.href = '5_service_area.html';
+    } else {
+      alert("Select at least one service hour.");
+    }
+  }
+</script>
+</body>
+
+</html>

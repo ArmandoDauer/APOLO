@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etapa 1 - Decision Variables</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 140px;
+      box-sizing: border-box;
+    }
+
+    .flow {
+    /*  position: fixed; */
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .description {
+      padding-top: 70px;
+      max-width: 900px;
+      margin: 0 auto 60px auto;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 600px;
+
+    }
+
+    .left {
+      flex: 1;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .right {
+      flex: 1;
+      padding-top: 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      background-color: #f9f9f9;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      padding: 10px 20px;
+      background-color: #add8e6;
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .centered-title {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .next-button:hover {
+      background-color: #90c7e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-start"></div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Decision Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">2</div>
+      <div class="step-label">User’s Perception</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">Simulation Params</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">5</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">6</div>
+      <div class="step-label">Performance?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">7</div>
+      <div class="step-label">Cost/Benefit</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">8</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">9</div>
+      <div class="step-label">Objectives?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-end"></div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="description">
+    <p>
+    For a transportation system to be efficient and effective in achieving its intended objectives, it must be well-adjusted to the socio-political-economic context of the service area in which it operates. In the case of DRTs, these regional characteristics influence, among other features, the system’s degree of flexibility.
+
+    Highly flexible systems may appear less attractive to users with time-sensitive trips, whereas a lack of flexibility may encourage potential passengers to opt for private vehicles. Therefore, flexibility is one of the key characteristics that influence passengers’ perception of a system’s usefulness, particularly in terms of how increasing or decreasing the system’s flexibility affects their willingness to use it. To account for this effect, MUSE incorporates the impact of flexibility in the scenario under study through a set of input elements that reflects the perception of the passengers on this matter. 
+
+    This perception is provided through a matrix that gathers the flexibility in each Operation’s variable, and how flexible each one-off it’s possible values.
+
+      <ul>
+        <li> <u>Effect:</u> For each variable, the decision-maker must decide if the increase in flexibility will affect positively or negatively the passenger’s perception of the utility of the system (if a system with increased flexibility in these variables fits their transportation needs).</li>
+
+        <li> <u>Intensity:</u> On a five-level scale ranging from “Weak” to “Strong”, decision-makers assess how impactful increasing the flexibility on the given variable would be on users' decisions to use or not use the service.</li>
+
+        <li> <u>Flexibility of Value:</u> Each of the values of the Operation variables is classified in terms of how flexible that variable is. This classification is based on a five-level scale ranging from No flexibility to Highly flexible.</li>
+      </ul>
+    </p>
+  </div>
+  
+  <div class="centered-title">
+    <h1>Pick-UP and Drop-off Locations</h1>
+  </div>
+
+  <div class="content">
+    <div class="line">
+      <h3>Effect of increasing the flexibility on demand</h3>
+      <select id="Effect_Pick_up_and_drop_off">
+        <option value="">-- Select an effect --</option>
+        <option value="positive">Positive</option>
+        <option value="negative">Negative</option>
+      </select>
+    </div>
+
+  <div class="line">
+      <h3>How impactful increasing the flexibility on this vairble would be on users' decisions to use or not use the service</h3>
+      <select id="Impact_Pick_up_and_drop_off">
+        <option value="">-- Select an Impact --</option>
+        <option value="positive">Strong</option>
+        <option value="negative">Moderate</option>
+        <option value="positive">Neutral</option>
+        <option value="negative">Limited</option>
+        <option value="negative">Weak</option>
+      </select>
+  </div>
+
+  <div class="centered-title">
+    <h3>Classification of Pick-up and Drop-off possible values in terms of flexibility</h3>
+  </div>
+
+  <div class="line">
+      <h3>Free Floating Between Stops</h3>
+      <select id="Flexibility_free_floating_between_Stops">
+        <option value="">-- Select how flexible --</option>
+        <option value="positive">Highly flexible</option>
+        <option value="negative">Flexible</option>
+        <option value="positive">Moderately flexible</option>
+        <option value="negative">Limited flexibility</option>
+        <option value="negative">No flexibility</option>
+      </select>
+  </div>
+
+  <div class="line">
+      <h3>Stablished Route with Divertions</h3>
+      <select id="Flexibility_stablished_route_with_divertions">
+        <option value="">-- Select how flexible --</option>
+        <option value="positive">Highly flexible</option>
+        <option value="negative">Flexible</option>
+        <option value="positive">Moderately flexible</option>
+        <option value="negative">Limited flexibility</option>
+        <option value="negative">No flexibility</option>
+      </select>
+  </div>
+
+  <div class="line">
+      <h3>Stablished Route</h3>
+      <select id="Flexibility_stablished_route">
+        <option value="">-- Select how flexible --</option>
+        <option value="positive">Highly flexible</option>
+        <option value="negative">Flexible</option>
+        <option value="positive">Moderately flexible</option>
+        <option value="negative">Limited flexibility</option>
+        <option value="negative">No flexibility</option>
+      </select>
+  </div>
+
+<!-- Botão corrigido -->
+<button class="next-button" onclick="saveSelections()">NEXT</button>
+
+<!-- Script deve estar no final do body -->
+<script>
+  function saveSelections() {
+    const Purpose_1 = document.getElementById('Purpose_1').value;
+    const Purpose_2 = document.getElementById('Purpose_2').value;
+
+    if (Purpose_1 || Purpose_2) {
+      localStorage.setItem('Purpose_1', Purpose_1);
+      localStorage.setItem('Purpose_2', Purpose_2);
+      window.location.href = '3_target_passengers.html';
+    } else {
+      alert("Select at least one purpose");
+    }
+  }
+</script>
+</body>
+
+</html>
