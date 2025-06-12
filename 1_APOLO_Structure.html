@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etapa 1 - Decision Variables</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 140px;
+      box-sizing: border-box;
+    }
+
+    .flow {
+    /*  position: fixed; */
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-left: 40px solid #87cefa;
+    }
+
+    .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-right: 40px solid #1e90ff;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .left {
+      flex: 1;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .right {
+      flex: 1;
+      padding-top: 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      background-color: #f9f9f9;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      padding: 10px 20px;
+      background-color: #add8e6;
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .next-button:hover {
+      background-color: #90c7e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-start"></div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Decision Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">2</div>
+      <div class="step-label">User’s Perception</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">Simulation Parameters</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">5</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">6</div>
+      <div class="step-label">Performance Acceptable?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">7</div>
+      <div class="step-label">Cost/Benefit</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">8</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">9</div>
+      <div class="step-label">Objectives Reached?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-end"></div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <div class="left">
+      <h2>APOLO Structure</h2>
+      <p>
+      Choosing the most efficient and effective configuration for a DRT system is a complex and challenging task. This difficulty stems from the wide range of possible configurations and the need to carefully consider the impact of various components that can determine the system’s success or failure. To support this demanding process, the idea emerged to develop a framework that could support in the design of such systems.
+      </p>
+      <p>
+      For the intended purposes, this work defines a framework as a question-cantered sequence of tools that, through the analysis and manipulation of user’s inputs, will provide an output. In this case, APOLO focuses on providing a feasible answer to the question: “Based on the inputs provided by the user, and at a strategic decision-making level, which is the most effective and efficient configuration for a DRT?”
+      </p>
+      <p>
+      In simplified terms, through with the user inputs (Directive Variables, user’s perception on flexibility, simulation parameters, and cost/benefit classifications), the framework applies its tools that will help identify an appropriate DRT configuration (values for the Operations and Service variables) for the scenario presented.
+      </p>
+      <p>
+      Given the different nature of the variables that will form the configuration of the DRTs, and to ensure adaptability and precision in addressing each aspect of the system's design, the framework was divided into three main modules:
+      </p>
+      <p>
+
+      <ul>
+          <li> <u>MUSE:</u> This module is designed to support in the selection of features related to the Operation Variables values. Combining the stakeholder’s inputs on Directive Variables, the user’s perspective on flexibility, and a collection of knowledge regarding previous DRT experiences, this module informs, for each Operations’ Variables value, how suitable it is to the DRT in development.</li>
+          <li> <u>ARTEMIS:</u> This module applies a simulation in a virtual scenario to understand how effective the selected values for the Operations’ Variables are. Based on the system's functionality, this module generates Key Performance Indicators (KPIs) to facilitate the evaluation of the operation according to the proposed configuration.</li>
+          <li> <u>DELOS:</u> This module supports the selection of values in the Service Variables groups. The values for each variable are analyzed through a cost/benefit analysis to understand which alternative(s) is suitable for the DRT.</li>
+      </ul>
+      </p>
+      <p>
+
+      The framework starts by defining the values for the variables of the Directive Variables groups. These are high-level decisions, made mainly by governmental bodies, that will guide the design of the overall system. Choosing the values of the Directive Variables occurs naturally, since these variables state, in a clear way, the motivation behind the need for designing the DRT.
+      </p>
+      <p>
+
+      It is important to notice that the DRT can be designed for more than one purpose. However, due to the specific configuration requirements observed for each purpose, it is recommended that no more than two purposes be selected for DRT planning. Otherwise, reaching a consensus on the variable's value that should be included in the DRT may not be feasible.
+      </p>
+      <p>
+
+      The following step is the application of the MUSE module. This module uses the knowledge gathered through the analysis of real-world DRT to generate a matrix of adequacy that relates the different possible purposes of DRTs and how often a certain value of the Operational Variables is applied in the design. This matrix of adequacy will generate subsidies to understand, based on the purposes defined in the Directive Variables, which variable values are more suited to the design of the DRT.
+      </p>
+      <p>
+
+      However, the scenario where the DRT will operate will exert great influence on the efficiency of the system and must be considered. This is especially true for the level of flexibility a DRT must have. While highly flexible services may provide a tailored service, it may consume time and resources that may turn the system unfeasible.
+      Therefore, the perception of the target passengers regarding the flexibility of the system is also considered by this module, using it to adapt the values of the matrix of adequacy to the service area under analysis.
+      </p>
+      <p>
+
+      Lastly, based on the adjusted values for the matrix of adequacy, MUSE will classify each Operation Variables value into “Marginally Suitable”, “Suitable”, and “Highly Suitable”, according to the frequency each value is attributed to DRTs of same purpose. Once this classification is provided, the decision-makers select which values will be assumed to the variables of its system.
+      </p>
+      <p>
+
+      After the values for the Operation Variables are defined, the ARTEMIS module can be applied. This module simulates, in a virtual scenario, daily operations of the proposed system. These simulations will suport the evaluation of the system's efficiency. To conduct the simulations, additional parameters must be provided by the decision-makers (such as the demand, number of instances, etc.). These must reflect as close as possible the scenario of the future operation.
+      </p>
+      <p>
+
+      The efficiency of the simulated system is calculated through Key Performance Indicators (KPI). These elements measure several aspects of the operation and represent them in a understandable way, allowing comparisons between different DRT configurations. Moreover, the KPIs also helps to understand which aspects must be changed to achieve a more efficient operation.
+      </p>
+      <p>
+
+      Based on the values of the KPIs, the decision-makers have two options: consider these values acceptable and move on to the DELOS module or revise the system configuration, searching for more adequate KPIs. APOLO was taught as an iterative process, therefore the decision-makers are encouraged to re-design the system a few times before moving on.
+      </p>
+      <p>
+
+      Once the MUSE and ARTEMIS modules support in the definition of Operation Variables, the DELOS module supports in defining the values for the Service Variables. This process occurs through a cost/benefit analysis of the impacts of each possible values for a variable.
+      </p>
+      <p>
+
+      Through DELOS, the decision-makers are presented with a list of all the impacts of a variable value (additional perceived impacts can also be added by the decision-makers). Then, the decision-makers must classify each impact on a scale of 5 levels, from the lower “Strong Cost” to the higher “Strong Benefit”. In the end, the classification of the impacts of each value is combined and results in a categorization of the variable’s value in one of the following: “Mostly Beneficial”; “Somehow Beneficial”; “Neutral”; “Somehow Costly”; “Mostly Costly”. After classification, as was done in the MUSE module, decision-makers define which variable values will be included in the system configuration. 
+      </p>
+      <p>
+      A final stage of the framework is dedicated to the careful analysis of the defined configuration and verification of whether it meets the objectives defined in the Directive Variables efficiently and effectively. If so, the process is completed by generating a DRT configuration at the strategic project level. Otherwise, the framework returns to the User's Perception on Flexibility definition stage to improve the system configurations based on what has been learned.
+      </p>
+      <p>
+      It is important to highlight that APOLO supports in finding the most suitable configuration for the DRT, based on previous DRT experiences. However, the final decision of which domains will be adopted must be made by the decision-makers (governmental bodies, operators, potential passengers, etc.) that, through an iterative process, design and re-design the system, analyzing different configurations and selecting the one that seems to be the most adequate.
+      </p>
+    </div>
+
+    <div class="right">
+      <img src="APOLO.png" width="300" alt="APOLO Structure">
+    </div>
+  </div>
+
+  <!-- Botão NEXT funcional -->
+  <button class="next-button" onclick="window.location.href='2_purposes_selection.html'">NEXT</button>
+
+  <button onclick="window.location.href='index.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
+  BACK
+</button>
+
+</body>
+
+</html>

@@ -29,6 +29,15 @@
       flex-wrap: wrap;
     }
 
+    .description {
+      padding-top: 70px;
+      max-width: 900px;
+      margin: 0 auto 60px auto;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
     .step, .step-label {
       display: flex;
       align-items: center;
@@ -94,19 +103,25 @@
     }
 
     .content {
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-      max-width: 1000px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
     }
 
+    .line {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+
+    }
+
     .left {
       flex: 1;
-      text-align: justify;
+      text-align: flex;
       font-size: 16px;
       line-height: 1.6;
+      width: 400px;
     }
 
     .right {
@@ -115,6 +130,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+      width: 400px;
     }
 
     select {
@@ -137,20 +153,26 @@
       cursor: pointer;
     }
 
+    .centered-title {
+      text-align: center;
+      margin: 20px 0;
+    }
+
     .next-button:hover {
       background-color: #90c7e6;
     }
+
   </style>
 </head>
-<body>
 
+<body>
   <!-- Fluxograma fixo -->
   <div class="flow">
     <div class="triangle-start"></div>
     <div class="arrow"></div>
 
     <div class="step-container">
-      <div class="step active">1</div>
+      <div class="step">1</div>
       <div class="step-label">Decision Variables</div>
     </div>
     <div class="arrow"></div>
@@ -162,7 +184,7 @@
     <div class="arrow"></div>
 
     <div class="step-container">
-      <div class="step">3</div>
+      <div class="step active">3</div>
       <div class="step-label">MUSE</div>
     </div>
     <div class="arrow"></div>
@@ -208,51 +230,87 @@
 
   <!-- Conteúdo principal -->
   <div class="content">
-    <div class="left">
-      <h2>Target Passengers</h2>
-      <p>
-        Another element defined early in the design process is the primary group(s) the service is intended to serve effectively. The inefficiencies perceived by stakeholders may either affect the general public or a specific segment of the population. In the first case, the system should be designed to serve society, maximizing the number of passengers that can benefit from the service. 
-        In the second case, the system focuses on meeting the needs of a particular group, and certain features of the service must be tailored to accommodate the specific requirements of that group. Through our review, we identified three different types of passengers, listed below. 
-      </p>
-      <p>
-         <ul>
-          <li> <u>General Passengers:</u> The whole population is considered as potential passengers of the system. There will be no design concession for favoring a specific group.</li>
-          <li><u>Population in Need (low-income, impaired, elderly):</u>  This population typically includes individuals with physical impairments who often lack access to other transportation options. The most common trip purposes for this group are medical appointments, shopping, and leisure activities. This demographic generally places a higher value on comfort (such as door-to-door and direct service) rather than strict punctuality.</li>
-          <li><u>Time Sensitive Passengers (youth in scholar age or working population):</u>Typically composed of younger and economically active individuals, this population often uses transport for work and school-related activities. Since these activities are usually time-sensitive, this demographic tends to prioritize punctuality over comfort.</li>
-        </ul> 
-      </p>
-    </div>
+    <h2 class="centered-title">Inform the Vehicle fleet</h2>
+    <p> The fleet of vehicles that will operate in the DRT varies according to the social, political, and economic conditions of the service area. In this case, it is difficult to suggest the most suitable fleet configuration, as it depends on local priorities, available resources, and operational constraints. Therefore, the decision-maker must define the fleet directly, considering the unique characteristics and needs of the territory.</p>
+    <button onclick="addVehicle()">+ Add Vehicles</button>
 
-    <div class="right">
-      <p>Only one target passenger can be selected</p>
-      <label for="Target_passenger">Target Passenger</label>
-      <select id="Target_passenger">
-        <option value="">-- Select a target passenger --</option>
-        <option value="general_passengers">General Passengers</option>
-        <option value="population_in_need">Population in Need</option>
-        <option value="time_sensitive_passengers">Time Sensitive Passengers</option>
-      </select>
+    <table id="fleetTable">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Number of Vehicles</th>
+          <th>Capacity (passengers)</th>
+          <th>Emissions (g of CO2/km)</th>
+          <th>Average Speed (km/h)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-<!-- Botão corrigido -->
-<button class="next-button" onclick="saveSelections()">NEXT</button>
+  <button class="next-button" onclick="saveFleet()">Next</button>
 
-<button onclick="window.location.href='2_purposes_selection.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
+<button onclick="window.location.href='8_MUSE_4.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
   BACK
 </button>
 
-<!-- Script deve estar no final do body -->
-<script>
-  function saveSelections() {
-    const Target_passenger = document.getElementById('Target_passenger').value;
+  <script>
+    const defaults = {
+      "Car/Taxi": { capacity: 4, emissions: 121, speed: 30 },
+      "Van": { capacity: 8, emissions: 150, speed: 30 },
+      "Minibus": { capacity: 15, emissions: 170, speed: 27 },
+      "BUS": { capacity: 30, emissions: 190, speed: 25 }
+    };
 
-    if (Target_passenger) {
-      localStorage.setItem('Target_passenger', Target_passenger);
-      window.location.href = '4_service_hours.html';
-    } else {
-      alert("Select the target passenger.");
+    function addVehicle() {
+      const table = document.getElementById("fleetTable").querySelector("tbody");
+      const row = document.createElement("tr");
+
+      const vehicleTypes = Object.keys(defaults);
+      const defaultType = vehicleTypes[0];
+      const defaultData = defaults[defaultType];
+
+      row.innerHTML = `
+        <td>
+          <select onchange="updateDefaults(this)">
+            ${vehicleTypes.map(type => `<option value="${type}">${type}</option>`).join('')}
+          </select>
+        </td>
+        <td><input type="number" min="1" value="1" class="fleetSize"></td>
+        <td><input type="number" value="${defaultData.capacity}" class="capacity"></td>
+        <td><input type="number" value="${defaultData.emissions}" class="emissions"></td>
+        <td><input type="number" value="${defaultData.speed}" class="speed"></td>
+      `;
+      table.appendChild(row);
     }
-  }
-</script>
+
+    function updateDefaults(select) {
+      const type = select.value;
+      const row = select.closest("tr");
+      row.querySelector(".capacity").value = defaults[type].capacity;
+      row.querySelector(".emissions").value = defaults[type].emissions;
+      row.querySelector(".speed").value = defaults[type].speed;
+    }
+
+    function saveFleet() {
+      const rows = document.querySelectorAll("#fleetTable tbody tr");
+      const fleetData = [];
+
+      rows.forEach(row => {
+        const type = row.querySelector("select").value;
+        const fleetSize = parseInt(row.querySelector(".fleetSize").value);
+        const capacity = parseInt(row.querySelector(".capacity").value);
+        const emissions = parseInt(row.querySelector(".emissions").value);
+        const speed = parseInt(row.querySelector(".speed").value);
+
+        fleetData.push({ type, fleetSize, capacity, emissions, speed });
+      });
+
+      localStorage.setItem("fleetData", JSON.stringify(fleetData));
+      window.location.href = "8_MUSE_final.html"; // Altere para o nome real da próxima página
+    }
+  </script>
 </body>
+
 
 </html>

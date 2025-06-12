@@ -211,15 +211,65 @@
         coordsContainer.innerHTML = "<strong>Service Area Coordinates:</strong> Not defined.";
       }
     </script>
+
   </div>
+
+  <div class="content">
+    <h2>Operational Variables</h2>
+    <div class="selection" id="selection-Selected_Pick_up_and_Drop_off"></div>
+    <div class="selection" id="selection-Selected_Vehicle_Route"></div>
+    <div class="selection" id="selection-Selected_Booking"></div>
+    <div class="selection" id="selection-Selected_Time_Window"></div>
+  </div>
+
+  <div class="content" style="margin-top: -50px;">
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fleet Configuration: </p>
+    <div class="selection">
+      <table id="fleetSummaryTable" style="width:100%; border-collapse: collapse; text-align: center;">
+        <thead>
+          <tr style="background-color: #d0e7f9;">
+            <th style="padding: 8px; border: 1px solid #ccc;">Vehicle Type</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Fleet Size</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Capacity</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Emissions (g/km)</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Speed (km/h)</th>
+          </tr>
+        </thead>
+        <tbody id="fleetSummaryBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const fleetData = JSON.parse(localStorage.getItem('fleetData') || '[]');
+    const fleetBody = document.getElementById("fleetSummaryBody");
+
+    if (fleetData.length === 0) {
+      fleetBody.innerHTML = '<tr><td colspan="5" style="padding: 10px; border: 1px solid #ccc;">No vehicle data available.</td></tr>';
+    } else {
+      fleetData.forEach(vehicle => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.type}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.fleetSize}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.capacity}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.emissions}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.speed}</td>
+        `;
+        fleetBody.appendChild(row);
+      });
+    }
+  </script>
+
 
   <button class="next-button" onclick="window.location.href='7_users_flexibility_perception.html'">NEXT</button>
 
-  <button onclick="window.location.href='5_service_area.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
+<button onclick="window.location.href='8_MUSE_5.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
   BACK
 </button>
 
 <script>
+
   const Purpose_1Map = {
     "reduce_operational_cost": "Reduce operational costs/Reduce pollution",
     "be_mobility_alternative": "Be a mobility alternative",
@@ -245,16 +295,42 @@
     "night_services": "Night Services"
   };
 
-  const Service_Hour_2Map = Service_Hour_1Map
-  const Service_Hour_3Map = Service_Hour_1Map
+  const Selected_Pick_up_and_Drop_offMap = {
+    "specific_request_poit": "Specific Request Point",
+    "close_to_the_request_point": "Close to the Request Point",
+    "existing_mapped_point": "Existing Mapped Point",
+    "specific_request_poit_and_close_to_the_request_point": "Specific Request Point & Close to the Request Point",
+    "specific_request_poit_and_existing_mapped_point": "Specific Request Point & Existing Mapped Point",
+    "existing_mapped_point_and_close_to_the_request_point": "Existing Mapped Point & Close to the Request Point"
+  };
 
+  const Selected_Vehicle_RouteMap = {
+    "free_floating": "Free Floating Between Stops",
+    "fixed_with_deviations": "Fixed Route With Deviations",
+    "fixed_route": "Fixed Route",
+  };
+
+  const Selected_BookingMap = {
+    "At_the_spot": "At the Spot",
+    "A_prior": "A Prior",
+    "At_the_spot_and_A_prior": "At the Spot and A Prior",
+  };
+
+  const Selected_Time_WindowMap = {
+    "TW_5": "5-minute Time Window",
+    "TW_10": "10-minute Time Window",
+    "TW_15": "15-minute Time Window",
+  };
 
   const Purpose_1 = localStorage.getItem('Purpose_1');
   const Purpose_2 = localStorage.getItem('Purpose_2');
   const Target_passenger = localStorage.getItem('Target_passenger');
   const Service_Hour_1 = localStorage.getItem('Service_Hour_1');
-  const Service_Hour_2 = localStorage.getItem('Service_Hour_2');
-  const Service_Hour_3 = localStorage.getItem('Service_Hour_3');
+
+  const Selected_Pick_up_and_Drop_off = localStorage.getItem('Selected_Pick_up_and_Drop_off');
+  const Selected_Vehicle_Route = localStorage.getItem('Selected_Vehicle_Route');
+  const Selected_Booking = localStorage.getItem('Selected_Booking');
+  const Selected_Time_Window = localStorage.getItem('Selected_Time_Window');
 
   document.getElementById('selection-Purpose_1').innerText =
     "Purpose 1: " + (Purpose_1Map[Purpose_1] || "Não selecionado");
@@ -268,20 +344,19 @@
   document.getElementById('selection-Service_Hour_1').innerText =
     "Service Hours: " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
 
-  if (Service_Hour_1Map[Service_Hour_1]) {
-  document.getElementById('selection-Service_Hour_1').innerText =
-    "Service Hours: " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
-      } 
+  document.getElementById('selection-Selected_Pick_up_and_Drop_off').innerText =
+    "Pick-up and Drop-off Methodology: " + (Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Não selecionado");
 
-  if (Service_Hour_2Map[Service_Hour_2]) {
-  document.getElementById('selection-Service_Hour_2').innerText =
-    "Service Hours: " + (Service_Hour_2Map[Service_Hour_2] || "Não selecionado");
-      } 
+  document.getElementById('selection-Selected_Vehicle_Route').innerText =
+    "Vehicle Route Methodology: " + (Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Não selecionado");
 
-  if (Service_Hour_3Map[Service_Hour_3]) {
-  document.getElementById('selection-Service_Hour_3').innerText =
-    "Service Hours: " + (Service_Hour_3Map[Service_Hour_3] || "Não selecionado");
-      } 
+  document.getElementById('selection-Selected_Booking').innerText =
+    "Booking Methodology: " + (Selected_BookingMap[Selected_Booking] || "Não selecionado");
+
+  document.getElementById('selection-Selected_Time_Window').innerText =
+    "Selected Time Window: " + (Selected_Time_WindowMap[Selected_Time_Window] || "Não selecionado");
+
+
 </script>
 
 </body>

@@ -118,7 +118,7 @@
 
     .left {
       flex: 1;
-      text-align: justify;
+      text-align: flex;
       font-size: 16px;
       line-height: 1.6;
     }
@@ -169,13 +169,13 @@
     <div class="arrow"></div>
 
     <div class="step-container">
-      <div class="step">1</div>
+      <div class="step active">1</div>
       <div class="step-label">Decision Variables</div>
     </div>
     <div class="arrow"></div>
 
     <div class="step-container">
-      <div class="step active">2</div>
+      <div class="step">2</div>
       <div class="step-label">User’s Perception</div>
     </div>
     <div class="arrow"></div>
@@ -188,7 +188,7 @@
 
     <div class="step-container">
       <div class="step">4</div>
-      <div class="step-label">Simulation Params</div>
+      <div class="step-label">Simulation Parameters</div>
     </div>
     <div class="arrow"></div>
 
@@ -200,7 +200,7 @@
 
     <div class="step-container">
       <div class="step">6</div>
-      <div class="step-label">Performance?</div>
+      <div class="step-label">Performance Acceptable?</div>
     </div>
     <div class="arrow"></div>
 
@@ -218,7 +218,7 @@
 
     <div class="step-container">
       <div class="step">9</div>
-      <div class="step-label">Objectives?</div>
+      <div class="step-label">Objectives Reached?</div>
     </div>
     <div class="arrow"></div>
 
@@ -243,7 +243,8 @@
       </ul>
     </p>
   </div>
-  
+ 
+  <hr style="width:50%;text-align:center;">
   <div class="centered-title">
     <h1>Pick-UP and Drop-off Locations</h1>
   </div>
@@ -253,8 +254,8 @@
       <h3>Effect of increasing the flexibility on demand</h3>
       <select id="Effect_Pick_up_and_drop_off">
         <option value="">-- Select an effect --</option>
-        <option value="positive">Positive</option>
-        <option value="negative">Negative</option>
+        <option value=1>Positive</option>
+        <option value=-1>Negative</option>
       </select>
     </div>
 
@@ -262,11 +263,11 @@
       <h3>How impactful increasing the flexibility on this vairble would be on users' decisions to use or not use the service</h3>
       <select id="Impact_Pick_up_and_drop_off">
         <option value="">-- Select an Impact --</option>
-        <option value="positive">Strong</option>
-        <option value="negative">Moderate</option>
-        <option value="positive">Neutral</option>
-        <option value="negative">Limited</option>
-        <option value="negative">Weak</option>
+        <option value=10>Strong</option>
+        <option value=7.5>Moderate</option>
+        <option value=5>Neutral</option>
+        <option value=2.5>Limited</option>
+        <option value=1>Weak</option>
       </select>
   </div>
 
@@ -274,59 +275,318 @@
     <h3>Classification of Pick-up and Drop-off possible values in terms of flexibility</h3>
   </div>
 
+
   <div class="line">
-      <h3>Free Floating Between Stops</h3>
-      <select id="Flexibility_free_floating_between_Stops">
+      <p><u>Specific Request Point:</u> Passengers are picked up and dropped off at the exact origin and destination of their trip. Among the possible values in this variable, it offers the highest level of flexibility. This type of journey is highly customizable, enhancing passenger comfort and potentially improving system accessibility for certain population groups. However, it also presents challenges related to planning, efficiency, and the impact on time and distance for other trip requests.</p>
+      <select id="Flexibility_specific_request_point">
         <option value="">-- Select how flexible --</option>
-        <option value="positive">Highly flexible</option>
-        <option value="negative">Flexible</option>
-        <option value="positive">Moderately flexible</option>
-        <option value="negative">Limited flexibility</option>
-        <option value="negative">No flexibility</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
       </select>
   </div>
 
   <div class="line">
-      <h3>Stablished Route with Divertions</h3>
-      <select id="Flexibility_stablished_route_with_divertions">
+      <p><u>Close to the Request Point:</u> Passengers are picked up and dropped off near their trip’s origin and destination but not at a fixed pre-determined point. Allowing passengers to walk tens (or sometimes hundreds) of meters from their origin enables pickups or drop-offs near arterial roads and avenues, facilitating more time- and cost-efficient routes. Although this option requires additional effort from passengers, it can be seen as a middle ground between the other two values.</p>
+      <select id="Flexibility_close_to_the_request_point">
         <option value="">-- Select how flexible --</option>
-        <option value="positive">Highly flexible</option>
-        <option value="negative">Flexible</option>
-        <option value="positive">Moderately flexible</option>
-        <option value="negative">Limited flexibility</option>
-        <option value="negative">No flexibility</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
       </select>
   </div>
 
   <div class="line">
-      <h3>Stablished Route</h3>
-      <select id="Flexibility_stablished_route">
+      <p><u>Existing Mapped Point:</u> In this case, the system operates with fixed pickup and drop-off points. These locations can be either physical or virtual, and, in the case of physical points, they may or may not be marked. This setup provides a certain level of predictability for both operators and passengers in terms of routing. However, it may reduce accessibility for mobility-impaired groups due to the need to travel to and from these points, which can be located far from their trip origins and destinations.</p>
+      <select id="Flexibility_existing_mapped_point">
         <option value="">-- Select how flexible --</option>
-        <option value="positive">Highly flexible</option>
-        <option value="negative">Flexible</option>
-        <option value="positive">Moderately flexible</option>
-        <option value="negative">Limited flexibility</option>
-        <option value="negative">No flexibility</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+
+ <hr style="width:100%;text-align:center;">
+  <div class="centered-title">
+    <h1>Vehicle Route</h1>
+  </div>
+
+  <div class="content">
+    <div class="line">
+      <h3>Effect of increasing the flexibility on demand</h3>
+      <select id="Effect_Vehicle_Route">
+        <option value="">-- Select an effect --</option>
+        <option value=1>Positive</option>
+        <option value=-1>Negative</option>
+      </select>
+    </div>
+
+  <div class="line">
+      <h3>How impactful increasing the flexibility on this vairble would be on users' decisions to use or not use the service</h3>
+      <select id="Impact_Vehicle_Route">
+        <option value="">-- Select an Impact --</option>
+        <option value=10>Strong</option>
+        <option value=7.5>Moderate</option>
+        <option value=5>Neutral</option>
+        <option value=2.5>Limited</option>
+        <option value=1>Weak</option>
+      </select>
+  </div>
+
+  <div class="centered-title">
+    <h3>Classification of Vehicle Route possible values in terms of flexibility</h3>
+  </div>
+
+
+  <div class="line">
+      <p><u>Free Floating Between Stops:</u> There is no predefined route for the vehicle. The route is calculated dynamically based on demand, adjusting to each set of trip requests. In this scenario, efficiency is emphasized, as the vehicle operates only in areas where it has been requested. However, this approach requires significant computational effort for each new route calculation. The complexity of route computation increases substantially as the number of trips grows.</p>
+      <select id="Flexibility_free_floating_between_stops">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+  <div class="line">
+      <p><u>Fixed Route with Diversions:</u> A fixed route is established, which the vehicle must follow. However, minor deviations (usually within a predefined time/distance limit) are allowed to accommodate specific passenger requests. These diversions enable the service to assist passengers with special needs or reduced mobility while still offering a degree of operational predictability for passengers and operators. Nevertheless, there remains a risk of low vehicle occupancy in low-demand areas.</p>
+      <select id="Flexibility_fixed_route_with_diversion">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+  <div class="line">
+      <p><u>Fixed Route:</u> Vehicles follow a predetermined and unalterable route. This operation methodology provides passengers and operators with a predictable system operation. However, it increases the risk of vehicles operating in scenarios where the system is not requested, potentially reducing overall efficiency.</p>
+      <select id="Flexibility_fixed_route">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+<hr style="width:100%;text-align:center;">
+  <div class="centered-title">
+    <h1>Required Booking Leading Time</h1>
+  </div>
+
+  <div class="content">
+    <div class="line">
+      <h3>Effect of increasing the flexibility on demand</h3>
+      <select id="Effect_Leading_Booking_Time">
+        <option value="">-- Select an effect --</option>
+        <option value=1>Positive</option>
+        <option value=-1>Negative</option>
+      </select>
+    </div>
+
+  <div class="line">
+      <h3>How impactful increasing the flexibility on this vairble would be on users' decisions to use or not use the service</h3>
+      <select id="Impact_Leading_Booking_Time">
+        <option value="">-- Select an Impact --</option>
+        <option value=10>Strong</option>
+        <option value=7.5>Moderate</option>
+        <option value=5>Neutral</option>
+        <option value=2.5>Limited</option>
+        <option value=1>Weak</option>
+      </select>
+  </div>
+
+  <div class="centered-title">
+    <h3>Classification of Pick-up and Drop-off possible values in terms of flexibility</h3>
+  </div>
+
+
+  <div class="line">
+      <p><u>At the Spot:</u> No advance scheduling is required for a trip; requests are fulfilled instantly, with the waiting time depending on the vehicle's travel to the pick-up location. This is the most flexible feature, as the system quickly adapts to the presented demand. It is primarily applied when the DRT system is proposed as an alternative to private vehicles, offering a similar level of comfort and responsiveness to individual transportation.</p>
+      <select id="Flexibility_At_the_spot">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+  <div class="line">
+      <p><u>A Prior: </u> Trips must be requested in advance, with the lead time varying according to the system’s purpose. The longer the advance notice, the more time operators have to plan and optimize routes and resource allocation. However, increasing the required notice period may alter passengers' perception of the system, as it cannot accommodate unforeseen travel needs.</p>
+      <select id="Flexibility_A_prior">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+ <hr style="width:100%;text-align:center;">
+  <div class="centered-title">
+    <h1>Time Window Size</h1>
+  </div>
+
+  <div class="content">
+    <div class="line">
+      <h3>Effect of increasing the flexibility on demand</h3>
+      <select id="Effect_Time_Window_Size">
+        <option value="">-- Select an effect --</option>
+        <option value=1>Positive</option>
+        <option value=-1>Negative</option>
+      </select>
+    </div>
+
+  <div class="line">
+      <h3>How impactful increasing the flexibility on this vairble would be on users' decisions to use or not use the service</h3>
+      <select id="Impact_Time_Window_Size">
+        <option value="">-- Select an Impact --</option>
+        <option value=10>Strong</option>
+        <option value=7.5>Moderate</option>
+        <option value=5>Neutral</option>
+        <option value=2.5>Limited</option>
+        <option value=1>Weak</option>
+      </select>
+  </div>
+
+  <div class="centered-title">
+    <h3>Classification of Pick-up and Drop-off possible values in terms of flexibility</h3>
+  </div>
+
+
+  <div class="line">
+      <p><u>5 Minutes Time-Window</u> </p>
+      <select id="Flexibility_5_Minute">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+    <div class="line">
+      <p><u>10 Minutes Time-Window</u> </p>
+      <select id="Flexibility_10_Minute">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
+      </select>
+  </div>
+
+    <div class="line">
+      <p><u>15 Minutes Time-Window</u> </p>
+      <select id="Flexibility_15_Minute">
+        <option value="">-- Select how flexible --</option>
+        <option value=10>Highly flexible</option>
+        <option value=7.5>Flexible</option>
+        <option value=5>Moderately flexible</option>
+        <option value=2.5>Limited flexibility</option>
+        <option value=1>No flexibility</option>
       </select>
   </div>
 
 <!-- Botão corrigido -->
 <button class="next-button" onclick="saveSelections()">NEXT</button>
 
+<button onclick="window.location.href='6_directive_variables_selected.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
+  BACK
+</button>
+
 <!-- Script deve estar no final do body -->
 <script>
   function saveSelections() {
-    const Purpose_1 = document.getElementById('Purpose_1').value;
-    const Purpose_2 = document.getElementById('Purpose_2').value;
+    const Effect_Pick_up_and_drop_off = document.getElementById("Effect_Pick_up_and_drop_off").value;
+    const Impact_Pick_up_and_drop_off = document.getElementById("Impact_Pick_up_and_drop_off").value;
+    const Flexibility_specific_request_point = document.getElementById("Flexibility_specific_request_point").value;
+    const Flexibility_close_to_the_request_point = document.getElementById("Flexibility_close_to_the_request_point").value;
+    const Flexibility_existing_mapped_point = document.getElementById("Flexibility_existing_mapped_point").value;
 
-    if (Purpose_1 || Purpose_2) {
-      localStorage.setItem('Purpose_1', Purpose_1);
-      localStorage.setItem('Purpose_2', Purpose_2);
-      window.location.href = '3_target_passengers.html';
+    const Effect_Vehicle_Route = document.getElementById("Effect_Vehicle_Route").value;
+    const Impact_Vehicle_Route = document.getElementById("Impact_Vehicle_Route").value;
+    const Flexibility_free_floating_between_stops = document.getElementById("Flexibility_free_floating_between_stops").value;
+    const Flexibility_fixed_route_with_diversion = document.getElementById("Flexibility_fixed_route_with_diversion").value;
+    const Flexibility_fixed_route = document.getElementById("Flexibility_fixed_route").value;
+
+    const Effect_Leading_Booking_Time = document.getElementById("Effect_Leading_Booking_Time").value;
+    const Impact_Leading_Booking_Time = document.getElementById("Impact_Leading_Booking_Time").value;
+    const Flexibility_At_the_spot = document.getElementById("Flexibility_At_the_spot").value;
+    const Flexibility_A_prior = document.getElementById("Flexibility_A_prior").value;
+
+    const Effect_Time_Window_Size = document.getElementById("Effect_Time_Window_Size").value;
+    const Impact_Time_Window_Size = document.getElementById("Impact_Time_Window_Size").value;
+    const Flexibility_5_Minute = document.getElementById("Flexibility_5_Minute").value;
+    const Flexibility_10_Minute = document.getElementById("Flexibility_10_Minute").value;
+    const Flexibility_15_Minute = document.getElementById("Flexibility_15_Minute").value;
+
+    if (
+        Effect_Pick_up_and_drop_off &&
+        Impact_Pick_up_and_drop_off &&
+        Flexibility_specific_request_point &&
+        Flexibility_close_to_the_request_point &&
+        Flexibility_existing_mapped_point &&
+        Effect_Vehicle_Route &&
+        Impact_Vehicle_Route &&
+        Flexibility_free_floating_between_stops &&
+        Flexibility_fixed_route_with_diversion &&
+        Flexibility_fixed_route &&
+        Effect_Leading_Booking_Time &&
+        Impact_Leading_Booking_Time &&
+        Flexibility_At_the_spot &&
+        Flexibility_A_prior &&
+        Effect_Time_Window_Size &&
+        Impact_Time_Window_Size &&
+        Flexibility_5_Minute &&
+        Flexibility_10_Minute &&
+        Flexibility_15_Minute
+      ) {
+      localStorage.setItem('Effect_Pick_up_and_drop_off', Effect_Pick_up_and_drop_off);
+      localStorage.setItem('Impact_Pick_up_and_drop_off', Impact_Pick_up_and_drop_off);
+      localStorage.setItem('Flexibility_specific_request_point', Flexibility_specific_request_point);
+      localStorage.setItem('Flexibility_close_to_the_request_point', Flexibility_close_to_the_request_point);
+      localStorage.setItem('Flexibility_existing_mapped_point', Flexibility_existing_mapped_point);
+      localStorage.setItem('Effect_Vehicle_Route', Effect_Vehicle_Route);
+      localStorage.setItem('Impact_Vehicle_Route', Impact_Vehicle_Route);
+      localStorage.setItem('Flexibility_free_floating_between_stops', Flexibility_free_floating_between_stops);
+      localStorage.setItem('Flexibility_fixed_route_with_diversion', Flexibility_fixed_route_with_diversion);
+      localStorage.setItem('Flexibility_fixed_route', Flexibility_fixed_route);
+      localStorage.setItem('Effect_Leading_Booking_Time',Effect_Leading_Booking_Time);
+      localStorage.setItem('Impact_Leading_Booking_Time',Impact_Leading_Booking_Time);
+      localStorage.setItem('Flexibility_At_the_spot',Flexibility_At_the_spot);
+      localStorage.setItem('Flexibility_A_prior',Flexibility_A_prior);
+      localStorage.setItem('Effect_Time_Window_Size',Effect_Time_Window_Size);
+      localStorage.setItem('Impact_Time_Window_Size',Impact_Time_Window_Size);
+      localStorage.setItem('Flexibility_5_Minute',Flexibility_5_Minute);
+      localStorage.setItem('Flexibility_10_Minute',Flexibility_10_Minute);
+      localStorage.setItem('Flexibility_15_Minute',Flexibility_15_Minute)
+      window.location.href = '8_MUSE_1.html';
     } else {
-      alert("Select at least one purpose");
+      alert("Missing items!");
     }
   }
+
+
+
+
 </script>
 </body>
 
