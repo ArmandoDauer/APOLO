@@ -227,21 +227,26 @@
 
   <!-- Conteúdo principal -->
   <div class="description">
-    <p>
-    For a transportation system to be efficient and effective in achieving its intended objectives, it must be well-adjusted to the socio-political-economic context of the service area in which it operates. In the case of DRTs, these regional characteristics influence, among other features, the system’s degree of flexibility.
+<p>
+  For a transportation system to be efficient and effective in achieving its intended objectives, it must be well-adapted to the socio-political and economic context of the service area in which it operates. In the case of DRT systems, these regional characteristics influence, among other aspects, the system’s degree of flexibility.
+</p>
 
-    Highly flexible systems may appear less attractive to users with time-sensitive trips, whereas a lack of flexibility may encourage potential passengers to opt for private vehicles. Therefore, flexibility is one of the key characteristics that influence passengers’ perception of a system’s usefulness, particularly in terms of how increasing or decreasing the system’s flexibility affects their willingness to use it. To account for this effect, MUSE incorporates the impact of flexibility in the scenario under study through a set of input elements that reflects the perception of the passengers on this matter. 
+<p>
+  Highly flexible systems may be less appealing to users with time-sensitive needs, while systems with low flexibility may prompt potential passengers to opt for private vehicles. As such, flexibility is one of the key characteristics influencing passengers’ perceptions of a system’s usefulness—particularly regarding how changes in flexibility affect their willingness to use the service.
+</p>
 
-    This perception is provided through a matrix that gathers the flexibility in each Operation’s variable, and how flexible each one-off it’s possible values.
+<p>
+  To incorporate this aspect, MUSE includes the impact of flexibility in the scenario under analysis through a set of input elements that reflect passenger perceptions on the topic. This perception is captured using a matrix that evaluates the flexibility associated with each operational variable, along with how flexible each of its possible values is.
+</p>
 
-      <ul>
-        <li> <u>Effect:</u> For each variable, the decision-maker must decide if the increase in flexibility will affect positively or negatively the passenger’s perception of the utility of the system (if a system with increased flexibility in these variables fits their transportation needs).</li>
+<ul>
+  <li><u>Effect:</u> For each variable, the decision-maker must determine whether an increase in flexibility positively or negatively affects passengers’ perception of the system’s utility (i.e., whether more flexibility in that variable better meets their transport needs).</li>
 
-        <li> <u>Intensity:</u> On a five-level scale ranging from “Weak” to “Strong”, decision-makers assess how impactful increasing the flexibility on the given variable would be on users' decisions to use or not use the service.</li>
+  <li><u>Intensity:</u> On a five-point scale ranging from “Weak” to “Strong,” decision-makers evaluate how impactful an increase in flexibility for a given variable would be on users’ decisions to use or avoid the service.</li>
 
-        <li> <u>Flexibility of Value:</u> Each of the values of the Operation variables is classified in terms of how flexible that variable is. This classification is based on a five-level scale ranging from No flexibility to Highly flexible.</li>
-      </ul>
-    </p>
+  <li><u>Flexibility of Value:</u> Each value of the operational variables is classified based on how flexible it is, using a five-level scale from “No flexibility” to “Highly flexible.”</li>
+</ul>
+
   </div>
  
   <hr style="width:50%;text-align:center;">
@@ -277,7 +282,10 @@
 
 
   <div class="line">
-      <p><u>Specific Request Point:</u> Passengers are picked up and dropped off at the exact origin and destination of their trip. Among the possible values in this variable, it offers the highest level of flexibility. This type of journey is highly customizable, enhancing passenger comfort and potentially improving system accessibility for certain population groups. However, it also presents challenges related to planning, efficiency, and the impact on time and distance for other trip requests.</p>
+<p>
+  <u>Specific Request Point:</u> Passengers are picked up and dropped off precisely at their origin and destination points. Among the possible values for this variable, it offers the highest level of flexibility. This type of journey is highly customizable, enhancing passenger comfort and potentially improving system accessibility for certain population groups. However, it also presents challenges in terms of planning efficiency and may increase travel time and distance for other trip requests within the system.
+</p>
+
       <select id="Flexibility_specific_request_point">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -289,7 +297,10 @@
   </div>
 
   <div class="line">
-      <p><u>Close to the Request Point:</u> Passengers are picked up and dropped off near their trip’s origin and destination but not at a fixed pre-determined point. Allowing passengers to walk tens (or sometimes hundreds) of meters from their origin enables pickups or drop-offs near arterial roads and avenues, facilitating more time- and cost-efficient routes. Although this option requires additional effort from passengers, it can be seen as a middle ground between the other two values.</p>
+<p>
+  <u>Close to the Request Point:</u> Passengers are picked up and dropped off near their trip’s origin and destination, though not at a fixed, pre-determined point. Allowing passengers to walk tens—or sometimes hundreds—of meters from their starting point enables pickups and drop-offs closer to arterial roads and main avenues, contributing to more time- and cost-efficient routes. Although this option demands additional effort from passengers, it represents a middle ground between the other two alternatives.
+</p>
+
       <select id="Flexibility_close_to_the_request_point">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -301,7 +312,10 @@
   </div>
 
   <div class="line">
-      <p><u>Existing Mapped Point:</u> In this case, the system operates with fixed pickup and drop-off points. These locations can be either physical or virtual, and, in the case of physical points, they may or may not be marked. This setup provides a certain level of predictability for both operators and passengers in terms of routing. However, it may reduce accessibility for mobility-impaired groups due to the need to travel to and from these points, which can be located far from their trip origins and destinations.</p>
+<p>
+  <u>Existing Mapped Point:</u> In this case, the system operates with fixed pickup and drop-off points. These locations can be either physical or virtual, and if physical, they may or may not be clearly marked. This arrangement offers a certain level of predictability for both operators and passengers regarding routing. However, it may reduce accessibility for mobility-impaired groups, as they need to travel to and from these points, which could be located far from their trip origins and destinations.
+</p>
+
       <select id="Flexibility_existing_mapped_point">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -346,7 +360,10 @@
 
 
   <div class="line">
-      <p><u>Free Floating Between Stops:</u> There is no predefined route for the vehicle. The route is calculated dynamically based on demand, adjusting to each set of trip requests. In this scenario, efficiency is emphasized, as the vehicle operates only in areas where it has been requested. However, this approach requires significant computational effort for each new route calculation. The complexity of route computation increases substantially as the number of trips grows.</p>
+<p>
+  <u>Free Floating Between Stops:</u> There is no predefined route for the vehicle. Instead, the route is dynamically calculated based on current demand, adjusting to each set of trip requests. This approach prioritizes efficiency, as the vehicle only operates in areas where service has been requested. However, it requires significant computational effort for each new route calculation, and the complexity of the routing increases substantially as the number of trips grows.
+</p>
+
       <select id="Flexibility_free_floating_between_stops">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -358,7 +375,10 @@
   </div>
 
   <div class="line">
-      <p><u>Fixed Route with Diversions:</u> A fixed route is established, which the vehicle must follow. However, minor deviations (usually within a predefined time/distance limit) are allowed to accommodate specific passenger requests. These diversions enable the service to assist passengers with special needs or reduced mobility while still offering a degree of operational predictability for passengers and operators. Nevertheless, there remains a risk of low vehicle occupancy in low-demand areas.</p>
+<p>
+  <u>Fixed Route with Diversions:</u> The vehicle follows a predetermined fixed route but is allowed minor deviations—typically within predefined time or distance limits—to accommodate specific passenger requests. These diversions help serve passengers with special needs or reduced mobility while maintaining a degree of operational predictability for both passengers and operators. However, there is still a risk of low vehicle occupancy in areas with low demand.
+</p>
+
       <select id="Flexibility_fixed_route_with_diversion">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -370,7 +390,10 @@
   </div>
 
   <div class="line">
-      <p><u>Fixed Route:</u> Vehicles follow a predetermined and unalterable route. This operation methodology provides passengers and operators with a predictable system operation. However, it increases the risk of vehicles operating in scenarios where the system is not requested, potentially reducing overall efficiency.</p>
+<p>
+  <u>Fixed Route:</u> Vehicles follow a predetermined, unchangeable route. This operational approach offers predictability for both passengers and operators. However, it can lead to vehicles running in areas without demand, potentially lowering overall system efficiency.
+</p>
+
       <select id="Flexibility_fixed_route">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -414,7 +437,10 @@
 
 
   <div class="line">
-      <p><u>At the Spot:</u> No advance scheduling is required for a trip; requests are fulfilled instantly, with the waiting time depending on the vehicle's travel to the pick-up location. This is the most flexible feature, as the system quickly adapts to the presented demand. It is primarily applied when the DRT system is proposed as an alternative to private vehicles, offering a similar level of comfort and responsiveness to individual transportation.</p>
+<p>
+  <u>At the Spot:</u> No advance scheduling is required for trips; requests are fulfilled immediately, with waiting time depending on the vehicle's travel to the pick-up location. This feature offers the highest level of flexibility, as the system quickly adapts to real-time demand. It is typically applied when the DRT system aims to provide an alternative to private vehicles, offering comparable comfort and responsiveness to individual transportation.
+</p>
+
       <select id="Flexibility_At_the_spot">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>
@@ -426,7 +452,9 @@
   </div>
 
   <div class="line">
-      <p><u>A Prior: </u> Trips must be requested in advance, with the lead time varying according to the system’s purpose. The longer the advance notice, the more time operators have to plan and optimize routes and resource allocation. However, increasing the required notice period may alter passengers' perception of the system, as it cannot accommodate unforeseen travel needs.</p>
+<p>
+  <u>A Prior:</u> Trips must be requested in advance, with the required lead time varying depending on the system’s purpose. The longer the advance notice, the more time operators have to plan and optimize routes and allocate resources efficiently. However, increasing the required notice period may affect passengers’ perception of the system, as it limits the ability to accommodate spontaneous travel needs.
+</p>
       <select id="Flexibility_A_prior">
         <option value="">-- Select how flexible --</option>
         <option value=10>Highly flexible</option>

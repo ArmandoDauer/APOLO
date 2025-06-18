@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Etapa 2 - User’s Perception</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 140px;
+    }
+
+    .flow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffffaa;
+      border-radius: 8px;
+    }
+
+    .selection {
+      background-color: #f0f8ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      padding: 10px 20px;
+      background-color: #add8e6;
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .next-button:hover {
+      background-color: #90c7e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-start"></div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Decision Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">2</div>
+      <div class="step-label">User’s Perception</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">3</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">Simulation Parameters</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">5</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">6</div>
+      <div class="step-label">Performance Acceptable?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">7</div>
+      <div class="step-label">Cost/Benefit</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">8</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">9</div>
+      <div class="step-label">Objectives Reached?</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-end"></div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <h2>Directive Variables</h2>
+    <div class="selection" id="selection-Purpose_1"></div>
+    <div class="selection" id="selection-Purpose_2"></div>
+    <div class="selection" id="selection-Target_passenger"></div>
+    <div class="selection" id="selection-Service_Hour_1"></div>
+    <div class="selection" id="selection-ServiceAreaCoords"></div>
+  
+    <script>
+      const coords = JSON.parse(localStorage.getItem('ServiceAreaCoords'));
+      const coordsContainer = document.getElementById('selection-ServiceAreaCoords');
+  
+      if (coords && coords.upperRight && coords.lowerLeft) {
+        coordsContainer.innerHTML =
+          `Service Area Coordinates:<br>
+          Upper Right: (${coords.upperRight.lat.toFixed(5)}, ${coords.upperRight.lng.toFixed(5)})<br>
+          Lower Left: (${coords.lowerLeft.lat.toFixed(5)}, ${coords.lowerLeft.lng.toFixed(5)})`;
+      } else {
+        coordsContainer.innerHTML = "<strong>Service Area Coordinates:</strong> Not defined.";
+      }
+    </script>
+
+  </div>
+
+  <div class="content">
+    <h2>Operational Variables</h2>
+    <div class="selection" id="selection-Selected_Pick_up_and_Drop_off"></div>
+    <div class="selection" id="selection-Selected_Vehicle_Route"></div>
+    <div class="selection" id="selection-Selected_Booking"></div>
+    <div class="selection" id="selection-Selected_Time_Window"></div>
+  </div>
+
+  <div class="content" style="margin-top: -50px;">
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fleet Configuration: </p>
+    <div class="selection">
+      <table id="fleetSummaryTable" style="width:100%; border-collapse: collapse; text-align: center;">
+        <thead>
+          <tr style="background-color: #d0e7f9;">
+            <th style="padding: 8px; border: 1px solid #ccc;">Vehicle Type</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Fleet Size</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Capacity</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Emissions (g/km)</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Speed (km/h)</th>
+          </tr>
+        </thead>
+        <tbody id="fleetSummaryBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const fleetData = JSON.parse(localStorage.getItem('fleetData') || '[]');
+    const fleetBody = document.getElementById("fleetSummaryBody");
+
+    if (fleetData.length === 0) {
+      fleetBody.innerHTML = '<tr><td colspan="5" style="padding: 10px; border: 1px solid #ccc;">No vehicle data available.</td></tr>';
+    } else {
+      fleetData.forEach(vehicle => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.type}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.fleetSize}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.capacity}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.emissions}</td>
+          <td style="padding: 8px; border: 1px solid #ccc;">${vehicle.speed}</td>
+        `;
+        fleetBody.appendChild(row);
+      });
+    }
+  </script>
+
+
+  <!-- <button class="next-button" onclick="window.location.href='7_users_flexibility_perception.html'">NEXT</button> -->
+
+<button onclick="window.location.href='8_MUSE_5.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
+  BACK
+</button>
+
+<script>
+
+  const Purpose_1Map = {
+    "reduce_operational_cost": "Reduce operational costs/Reduce pollution : The DRT system will serve as a substitute for an existing system that has been proven economically inefficient. These scenarios usually happen when there isn’t enough demand to sustain a regular service, either due to the population distribution or due to the low-demand operation hours. Also, minimize the carbon footprint of the overall transport in the area. It may be related to reduce the number of private transports in favour for the use of a public alternative (the DRT) or eliminating the inefficiencies of an existing PT that lead to excessive pollution.",
+    "be_mobility_alternative": "Be a mobility alternative: In an area which relies heavily on existing public transport or private transport. Therefore, this new system will serve as an alternative transportation option. As an example, it may focus on reducing the use of private vehicles by offering a premium public transportation, with increased comfort, costing a little more than the conventional transport, but at a fraction of the cost of a private transport.",
+    "serve_population_in_need": "Serve the population in need: DRT systems ensure accessibility where traditional public transport falls short, catering to groups like seniors, people with disabilities, and those in remote areas. Their flexible, on-demand services enhance mobility options and promote community inclusivity.",
+    "Feed_other_transportation_systems": "Feed other transportation systems: The system will serve to provide access for larger transportation systems, such as airports, ports, train and bus stations. It makes a bridge between passengers’ home (or close passengers gathering locations) and these mass transportation systems.",
+    "Complement_existing_PT_gaps": "Complement existing PT gaps: In these cases, the existing PT cannot cover all passenger needs. Therefore, an additional system is required to serve the demand that cannot be served by the existing service.",
+    "Provide_transport_in_rural_areas": "Provide transport in rural areas: DRT systems bridge gaps in rural transit by offering tailored routes and schedules. This improves access to essential services, jobs, and regional connections, reducing reliance on private vehicles and fostering sustainable community development"
+  };
+
+  const Purpose_2Map = Purpose_1Map;
+
+  const Target_passengerMap = {
+    "general_passengers": "General Passengers: The whole population is considered as potential passengers of the system. There will be no design concession for favoring a specific group.",
+    "population_in_need": "Population in Need: Population in Need (low-income, impaired, elderly): This population typically includes individuals with physical impairments who often lack access to other transportation options. The most common trip purposes for this group are medical appointments, shopping, and leisure activities. This demographic generally places a higher value on comfort (such as door-to-door and direct service) rather than strict punctuality.",
+    "time_sensitive_passengers": "Time Sensitive Passengers: Time Sensitive Passengers (youth in scholar age or working population): Typically composed of younger and economically active individuals, this population often uses transport for work and school-related activities. Since these activities are usually time-sensitive, this demographic tends to prioritize punctuality over comfort."
+  };
+
+  const Service_Hour_1Map = {
+    "conventional_business_hour": "Conventional Transport Business Hours: The DRT operates during the same hours as a conventional public transport system. Typically, DRTs functioning under this scheme in regions where a traditional system already exists aim to complement the traditional system's operation, either by serving areas or passengers that cannot be efficiently accommodated or by improving access to the existing system.",
+    "off_peak_only": "Off-peak hours only: In this case, the DRT operates only during off-peak hours, when demand is lower and potentially insufficient for a traditional system to operate efficiently. DRTs operating during these hours can either supplement the existing transport system or entirely replace it.",
+    "peak_hours_only": "Peak hours only: DRTs operating exclusively during peak hours can help address excess demand that a regular system cannot handle, either by increasing the supply of vehicles and routes or by providing access to high-capacity transport modes. Additionally, in scenarios where these DRTs operate independently, peak hours may be the only viable timeframe for their operation.",
+    "specific_time_window": "Specific time window: The system operates at specific time periods, that may or not be regular. The definition of these operation periods is influenced by the demand, availability of resources, offer of other transportation options, etc.",
+    "night_services": "Night Services: During nighttime periods, demand is generally very low. As a result, regular transport services often struggle to implement a viable operation, frequently reducing service frequency or, in more extreme cases, ceasing operations entirely. Due to the low demand, DRT operations become a feasible solution for continuing to meet existing mobility needs."
+  };
+
+  const Selected_Pick_up_and_Drop_offMap = {
+    "specific_request_poit": "Specific Request Point",
+    "close_to_the_request_point": "Close to the Request Point",
+    "existing_mapped_point": "Existing Mapped Point",
+    "specific_request_poit_and_close_to_the_request_point": "Specific Request Point & Close to the Request Point",
+    "specific_request_poit_and_existing_mapped_point": "Specific Request Point & Existing Mapped Point",
+    "existing_mapped_point_and_close_to_the_request_point": "Existing Mapped Point & Close to the Request Point"
+  };
+
+  const Selected_Vehicle_RouteMap = {
+    "free_floating": "Free Floating Between Stops",
+    "fixed_with_deviations": "Fixed Route With Deviations",
+    "fixed_route": "Fixed Route",
+  };
+
+  const Selected_BookingMap = {
+    "At_the_spot": "At the Spot",
+    "A_prior": "A Prior",
+    "At_the_spot_and_A_prior": "At the Spot and A Prior",
+  };
+
+  const Selected_Time_WindowMap = {
+    "TW_5": "5-minute Time Window",
+    "TW_10": "10-minute Time Window",
+    "TW_15": "15-minute Time Window",
+  };
+
+  const Purpose_1 = localStorage.getItem('Purpose_1');
+  const Purpose_2 = localStorage.getItem('Purpose_2');
+  const Target_passenger = localStorage.getItem('Target_passenger');
+  const Service_Hour_1 = localStorage.getItem('Service_Hour_1');
+
+  const Selected_Pick_up_and_Drop_off = localStorage.getItem('Selected_Pick_up_and_Drop_off');
+  const Selected_Vehicle_Route = localStorage.getItem('Selected_Vehicle_Route');
+  const Selected_Booking = localStorage.getItem('Selected_Booking');
+  const Selected_Time_Window = localStorage.getItem('Selected_Time_Window');
+
+  document.getElementById('selection-Purpose_1').innerText =
+    "Purpose 1: " + (Purpose_1Map[Purpose_1] || "Não selecionado");
+
+  document.getElementById('selection-Purpose_2').innerText =
+    "Purpose 2: " + (Purpose_2Map[Purpose_2] || "Não selecionado");
+
+  document.getElementById('selection-Target_passenger').innerText =
+    "Target Passengers: " + (Target_passengerMap[Target_passenger] || "Não selecionado");
+
+  document.getElementById('selection-Service_Hour_1').innerText =
+    "Service Hours: " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
+
+  document.getElementById('selection-Selected_Pick_up_and_Drop_off').innerText =
+    "Pick-up and Drop-off Methodology: " + (Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Não selecionado");
+
+  document.getElementById('selection-Selected_Vehicle_Route').innerText =
+    "Vehicle Route Methodology: " + (Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Não selecionado");
+
+  document.getElementById('selection-Selected_Booking').innerText =
+    "Booking Methodology: " + (Selected_BookingMap[Selected_Booking] || "Não selecionado");
+
+  document.getElementById('selection-Selected_Time_Window').innerText =
+    "Selected Time Window: " + (Selected_Time_WindowMap[Selected_Time_Window] || "Não selecionado");
+
+
+</script>
+
+<!-- Botão estilizado -->
+<button onclick="gerarPDF()" style="position: fixed; bottom: 90px; right: 40px; padding: 10px 20px; background-color: #4CAF50; border: none; color: white; border-radius: 20px; font-weight: bold; cursor: pointer;">
+  PDF Report
+</button>
+
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  async function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 20;
+
+    const linhaSeparadora = () => {
+      doc.setDrawColor(150);
+      doc.line(10, y, 200, y);
+      y += 10;
+    };
+
+    const secaoTitulo = (titulo) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.text(titulo, 10, y);
+      y += 8;
+      linhaSeparadora();
+    };
+
+    const addLinha = (label, valor) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text(`${label}:`, 15, y, { maxWidth: 60 });
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.text(valor, 80, y, { maxWidth: 120 });
+      y += 35;
+      if (y > 280) {
+        doc.addPage();
+        y = 20;
+      }
+    };
+
+    const coord = JSON.parse(localStorage.getItem('ServiceAreaCoords')) || {};
+    const fleetData = JSON.parse(localStorage.getItem('fleetData') || '[]');
+
+    const Purpose_1 = localStorage.getItem('Purpose_1');
+    const Purpose_2 = localStorage.getItem('Purpose_2');
+    const Target_passenger = localStorage.getItem('Target_passenger');
+    const Service_Hour_1 = localStorage.getItem('Service_Hour_1');
+    const Selected_Pick_up_and_Drop_off = localStorage.getItem('Selected_Pick_up_and_Drop_off');
+    const Selected_Vehicle_Route = localStorage.getItem('Selected_Vehicle_Route');
+    const Selected_Booking = localStorage.getItem('Selected_Booking');
+    const Selected_Time_Window = localStorage.getItem('Selected_Time_Window');
+
+    // Título principal
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text("Especificações do Projeto DRT", 105, 10, null, null, 'center');
+    doc.setFontSize(12);
+
+    // Seção: Objetivos e Diretrizes
+    secaoTitulo("Directive Variables");
+    addLinha("Purpose 1", Purpose_1Map[Purpose_1] || "Undefined");
+    addLinha("Purpose 2", Purpose_2Map[Purpose_2] || "Undefined");
+    addLinha("Target Passengers", Target_passengerMap[Target_passenger] || "Undefined");
+    addLinha("Service Hours", Service_Hour_1Map[Service_Hour_1] || "Undefined");
+
+    if (coord.upperRight && coord.lowerLeft) {
+      addLinha("Service Area - Top-Right", `(${coord.upperRight.lat.toFixed(5)}, ${coord.upperRight.lng.toFixed(5)})`);
+      addLinha("Service Area - Bottom-Left", `(${coord.lowerLeft.lat.toFixed(5)}, ${coord.lowerLeft.lng.toFixed(5)})`);
+    } else {
+      addLinha("Service Area", "Undefined");
+    }
+
+    // Seção: Estratégias Operacionais
+    secaoTitulo("2. Estratégias Operacionais");
+    addLinha("Pick-Up and Drop-off Points Methodology:\n", Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Undefined");
+    addLinha("Vehicle Route Methodology", Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Undefined");
+    addLinha("Booking Methodology", Selected_BookingMap[Selected_Booking] || "Undefined");
+    addLinha("Time-Window Methodology:", Selected_Time_WindowMap[Selected_Time_Window] || "Undefined");
+
+    if (fleetData.length > 0) {
+      fleetData.forEach((v, index) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.text(`Vehicle Type ${index + 1}:`, 15, y);
+        y += 7;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.text(`Type: ${v.type} | Fleet Size: ${v.fleetSize} | Capacity: ${v.capacity}`, 20, y);
+        y += 6;
+        doc.text(`CO2 Emissions: ${v.emissions} g/km | Speed: ${v.speed} km/h`, 20, y);
+        y += 10;
+
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+    } else {
+      doc.setFont('helvetica', 'italic');
+      doc.text("Undefined Fleet COnfiguration.", 15, y);
+    }
+
+    doc.save("DRT_Strategic_Project.pdf");
+  }
+</script>
+
+
+</body>
+</html>
