@@ -35,6 +35,13 @@
       font-weight: bold;
     }
 
+      .triangle-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
     .step {
       width: 50px;
       height: 50px;
@@ -108,26 +115,48 @@
       font-size: 16px;
     }
 
-    .next-button {
+    .button-column {
       position: fixed;
-      bottom: 20px;
+      bottom: 90px;
       right: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      z-index: 999;
+    }
+    
+    .action-button {
       padding: 10px 20px;
-      background-color: #add8e6;
-      border: 1px solid #000;
-      border-radius: 20px;
       font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      background-color: #1e90ff;
+      color: white;
       cursor: pointer;
+      width: 200px;
+      text-align: center;
+    }
+    
+    .action-button:hover {
+      background-color: #4682b4;
+    }
+    
+    .green-button {
+      background-color: #4CAF50;
+    }
+    
+    .green-button:hover {
+      background-color: #3e8e41;
     }
 
-    .next-button:hover {
-      background-color: #90c7e6;
+      
     }
   </style>
 </head>
 <body>
 
-  <!-- Fixed Flow -->
+  <!-- Fluxograma fixo -->
   <div class="flow">
     <div class="triangle-container">
       <div class="triangle-start"></div>
@@ -142,7 +171,7 @@
     <div class="arrow"></div>
 
     <div class="step-container">
-      <div class="step active">2</div>
+      <div class="step">2</div>
       <div class="step-label">MUSE</div>
     </div>
     <div class="arrow"></div>
@@ -160,7 +189,7 @@
     <div class="arrow"></div>
 
     <div class="triangle-container">
-      <div class="triangle-end"></div>
+        <div class="triangle-end active"></div>
       <div class="triangle-label">End</div>
     </div>
   </div>
@@ -237,14 +266,25 @@
     }
   </script>
 
+      <!-- Conteúdo principal -->
+  <div class="content">
+    <h2>Service Variables</h2>
+    <div class="selection" id="selection-Selected_Payment_Method"></div>
+    <div class="selection" id="selection-Selected_Stop_Type"></div>
+    <div class="selection" id="selection-Selected_Booking_Method"></div>
+    <div class="selection" id="selection-Selected_Fare_Type"></div>
+  </div>
 
-<button class="next-button" onclick="window.location.href='DELOS_0.html'">NEXT</button>
+
+  <!-- <button class="next-button" onclick="window.location.href='7_users_flexibility_perception.html'">NEXT</button> -->
+<div class="button-column">
+  <button class="action-button green-button" onclick="gerarPDF()">PDF Report</button>
+  <button class="action-button" onclick="window.location.href='DELOS_7.html'">BACK</button>
+  <button class="action-button" onclick="window.location.href='01_Decision_Variables.html'">BACK to Decision Variables</button>
+  <button class="action-button" onclick="window.location.href='MUSE_0.html'">BACK to Operational Variables</button>
+  <button class="action-button" onclick="window.location.href='DELOS_0.html'">BACK to Service Variables</button>
+</div>
     
-
-<button onclick="window.location.href='8_MUSE_5.html'" style="position: fixed; bottom: 20px; left: 40px; padding: 10px 20px; background-color: #add8e6; border: 1px solid #000; border-radius: 20px; font-weight: bold; cursor: pointer;">
-  BACK
-</button>
-
 <script>
 
   const Purpose_1Map = {
@@ -299,6 +339,33 @@
     "TW_15": "15-minute Time Window",
   };
 
+  const Selected_Payment_MethodMap = {
+    "When Boarding": "When Boarding: Passengers pay the fare directly to the driver when entering the vehicle, typically using cash or a simple payment system. It's easy to understand but may slow down boarding.",
+    "Credit Based": "Credit Based: Passengers must pay in advance using a card, app, or other digital system. This allows faster boarding but requires users to be familiar with the system.",
+    "When Boarding and Credit Based": "When Boarding and Credit Based: The system supports both direct payment on boarding and pre-paid options, offering flexibility for different user profiles.",
+  };
+
+  const Selected_Stop_TypeMap = {
+    "Physical Stops" : "Physical Stops: The system uses marked, fixed physical locations for passenger pick-up and drop-off. These are predictable but may reduce flexibility.",
+    "Virtual Stops" : "Virtual Stops: Pick-up and drop-off points are determined dynamically within a defined area (e.g., street corners), offering more flexibility and coverage but less predictability.",
+  };
+
+  const Selected_Booking_MethodMap = {
+    "Physical": "Physical: Bookings are made in person at specific service points or terminals.",
+    "Telephone": "Telephone: Passengers call a dispatch center to request a ride.",
+    "Web": "Web: Bookings are made online via website or mobile app.",
+    "Physical & Telephone": "Physical & Telephone: Offers both in-person and phone booking options.",
+    "Physical & Web": "Physical & Web: Combines walk-in service and online booking tools.",
+    "Telephone & Web": "Telephone & Web: Passengers can book rides using either phone or internet.",
+    "Physical, Telephone & Web": "Physical, Telephone & Web: All three methods are available, ensuring maximum accessibility for different user types.",
+  };
+
+  const Selected_Fare_TypeMap = {
+    "Fixed Fare": "Fixed Fare: Every ride costs the same amount, regardless of distance traveled.",
+    "Distance_Based Fare": "Distance Based Fare: The fare is calculated based on the distance of the trip, similar to taxi meters or ride-hailing apps.",
+  };
+    
+
   const Purpose_1 = localStorage.getItem('Purpose_1');
   const Purpose_2 = localStorage.getItem('Purpose_2');
   const Target_passenger = localStorage.getItem('Target_passenger');
@@ -308,38 +375,48 @@
   const Selected_Vehicle_Route = localStorage.getItem('Selected_Vehicle_Route');
   const Selected_Booking = localStorage.getItem('Selected_Booking');
   const Selected_Time_Window = localStorage.getItem('Selected_Time_Window');
+    
+  const Selected_Payment_Method = localStorage.getItem('Selected_Payment_Method');
+  const Selected_Stop_Type = localStorage.getItem('Selected_Stop_Type');
+  const Selected_Booking_Method = localStorage.getItem('Selected_Booking_Method');
+  const Selected_Fare_Type = localStorage.getItem('Selected_Fare_Type');
 
   document.getElementById('selection-Purpose_1').innerText =
-    "Purpose 1 - " + (Purpose_1Map[Purpose_1] || "Não selecionado");
+    "Purpose 1 - " + (Purpose_1Map[Purpose_1] || "Not defined.");
 
   document.getElementById('selection-Purpose_2').innerText =
-    "Purpose 2: - " + (Purpose_2Map[Purpose_2] || "Não selecionado");
+    "Purpose 2: - " + (Purpose_2Map[Purpose_2] || "Not defined.");
 
   document.getElementById('selection-Target_passenger').innerText =
-    "Target Passengers - " + (Target_passengerMap[Target_passenger] || "Não selecionado");
+    "Target Passengers - " + (Target_passengerMap[Target_passenger] || "Not defined.");
 
   document.getElementById('selection-Service_Hour_1').innerText =
-    "Service Hours - " + (Service_Hour_1Map[Service_Hour_1] || "Não selecionado");
+    "Service Hours - " + (Service_Hour_1Map[Service_Hour_1] || "Not defined.");
 
   document.getElementById('selection-Selected_Pick_up_and_Drop_off').innerText =
-    "Pick-up and Drop-off Methodology - " + (Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Não selecionado");
+    "Pick-up and Drop-off Methodology - " + (Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Not defined.");
 
   document.getElementById('selection-Selected_Vehicle_Route').innerText =
-    "Vehicle Route Methodology - " + (Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Não selecionado");
+    "Vehicle Route Methodology - " + (Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Not defined.");
 
   document.getElementById('selection-Selected_Booking').innerText =
-    "Booking Methodology - " + (Selected_BookingMap[Selected_Booking] || "Não selecionado");
+    "Booking Methodology - " + (Selected_BookingMap[Selected_Booking] || "Not defined.");
 
   document.getElementById('selection-Selected_Time_Window').innerText =
-    "Selected Time Window - " + (Selected_Time_WindowMap[Selected_Time_Window] || "Não selecionado");
+    "Selected Time Window - " + (Selected_Time_WindowMap[Selected_Time_Window] || "Not defined.");
 
+  document.getElementById('selection-Selected_Payment_Method').innerText =
+    "Selected Payment Method- " + (Selected_Payment_MethodMap[Selected_Payment_Method] || "Not defined.");
 
+  document.getElementById('selection-Selected_Stop_Type').innerText =
+    "Selected Stop Typed- " + (Selected_Stop_TypeMap[Selected_Stop_Type] || "Not defined.");
+
+  document.getElementById('selection-Selected_Booking_Method').innerText =
+    "Selected Booking Method- " + (Selected_Booking_MethodMap[Selected_Booking_Method] || "Not defined.");
+
+  document.getElementById('selection-Selected_Fare_Type').innerText =
+    "Selected Fare Type- " + (Selected_Fare_TypeMap[Selected_Fare_Type] || "Not defined.");
 </script>
-
-<!-- Botão estilizado -->
-<button onclick="gerarPDF()" style="position: fixed; bottom: 90px; right: 40px; padding: 10px 20px; background-color: #4CAF50; border: none; color: white; border-radius: 20px; font-weight: bold; cursor: pointer;">
-  PDF Report
-</button>
 
 <!-- jsPDF CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -358,7 +435,7 @@
 
     const secaoTitulo = (titulo) => {
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(14);
+      doc.setFontSize(14);  
       doc.text(titulo, 10, y);
       y += 8;
       linhaSeparadora();
@@ -398,10 +475,16 @@ const addLinha = (label, valor) => {
     const Purpose_2 = localStorage.getItem('Purpose_2');
     const Target_passenger = localStorage.getItem('Target_passenger');
     const Service_Hour_1 = localStorage.getItem('Service_Hour_1');
+
     const Selected_Pick_up_and_Drop_off = localStorage.getItem('Selected_Pick_up_and_Drop_off');
     const Selected_Vehicle_Route = localStorage.getItem('Selected_Vehicle_Route');
     const Selected_Booking = localStorage.getItem('Selected_Booking');
     const Selected_Time_Window = localStorage.getItem('Selected_Time_Window');
+
+    const Selected_Payment_Method = localStorage.getItem('Selected_Payment_Method');
+    const Selected_Stop_Type = localStorage.getItem('Selected_Stop_Type');
+    const Selected_Booking_Method = localStorage.getItem('Selected_Booking_Method');
+    const Selected_Fare_Type = localStorage.getItem('Selected_Fare_Type');
 
     // Título principal
     doc.setFont('helvetica', 'bold');
@@ -425,10 +508,10 @@ const addLinha = (label, valor) => {
 
     // Seção: Estratégias Operacionais
     secaoTitulo("2. Operational Variables");
-    addLinha("Pick-Up and Drop-off Points Methodology:\n", Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Undefined");
+    addLinha("Pick-Up and Drop-off Points Methodology", Selected_Pick_up_and_Drop_offMap[Selected_Pick_up_and_Drop_off] || "Undefined");
     addLinha("Vehicle Route Methodology", Selected_Vehicle_RouteMap[Selected_Vehicle_Route] || "Undefined");
     addLinha("Booking Methodology", Selected_BookingMap[Selected_Booking] || "Undefined");
-    addLinha("Time-Window Methodology:", Selected_Time_WindowMap[Selected_Time_Window] || "Undefined");
+    addLinha("Time-Window Methodology", Selected_Time_WindowMap[Selected_Time_Window] || "Undefined");
 
     if (fleetData.length > 0) {
       fleetData.forEach((v, index) => {
@@ -453,10 +536,19 @@ const addLinha = (label, valor) => {
       doc.setFont('helvetica', 'italic');
       doc.text("Undefined Fleet COnfiguration.", 15, y);
     }
+    
+    secaoTitulo("3. Service Variables");
+    addLinha("Payment Method", Selected_Payment_MethodMap[Selected_Payment_Method] || "Undefined");
+    addLinha("Stop Type", Selected_Stop_TypeMap[Selected_Stop_Type] || "Undefined");
+    addLinha("Booking Method", Selected_Booking_MethodMap[Selected_Booking_Method] || "Undefined");
+    addLinha("Fare Type", Selected_Fare_TypeMap[Selected_Fare_Type] || "Undefined");
+
 
     doc.save("DRT_Strategic_Project.pdf");
   }
 </script>
+    
+
 
 
 </body>

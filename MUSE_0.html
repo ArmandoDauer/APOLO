@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DELOS Introduction</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding-top: 140px;
+      box-sizing: border-box;
+    }
+
+    .flow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .triangle-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background-color: #1e90ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4682b4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Flow -->
+  <div class="flow">
+    <div class="triangle-container">
+      <div class="triangle-start"></div>
+      <div class="triangle-label">Start</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Directive Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">2</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">4</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-container">
+      <div class="triangle-end"></div>
+      <div class="triangle-label">End</div>
+    </div>
+  </div>
+
+  <!-- Orientation Text -->
+  <div class="content">
+    <h1>MUSE Module</h1>
+    <p style="font-size: 16px;">
+      The MUSE module is focused on Operation variables, elements that will effect the everyday operation of the service.
+      In the following pages, you will be presented with the concept of Flexibility and will be required to classify the impacts of this concept on different operational configurations. Please take a moment to consider the potential impact of each one before making your choice.
+      Then, the module will show how each configuration is suitable to the scenario presented, in a scale frin <strong>“Highly Suitable”</strong> to <strong>“Marginally Suitable”</strong>. Based on this classification, you can make an assisted decision on which elements will be part of the DRT configuration.
+    </p>
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-container">
+    <button onclick="window.location.href='6_directive_variables_selected.html'">BACK</button>     
+    <button onclick="window.location.href='7_users_flexibility_perception.html'">START</button>
+  </div>
+
+</body>
+</html>

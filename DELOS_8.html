@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fare Type Selection</title>
+  <style>
+    body {
+      background-color: #e5eff5;
+      font-family: sans-serif;
+      margin: 0;
+      padding-top: 140px;
+      box-sizing: border-box;
+    }
+
+          .flow {
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e5eff5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 10px;
+      justify-content: center;
+      z-index: 1000;
+      flex-wrap: wrap;
+      position: fixed;
+    }
+
+    .step, .step-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1e90ff;
+      color: white;
+    }
+
+    .step.active {
+      background-color: #87cefa;
+      color: black;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .arrow {
+      width: 30px;
+      height: 5px;
+      background-color: #a0a0a0;
+    }
+
+    .triangle-start, .triangle-end {
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+    }
+
+    .triangle-start {
+      border-left: 40px solid #1e90ff;
+    }
+
+    .triangle-end {
+      border-right: 40px solid #1e90ff;
+    }
+
+    .triangle-start.active {
+      border-left-color: #87cefa;
+    }
+
+    .triangle-end.active {
+      border-right-color: #87cefa;
+    }
+
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f8ff;
+      text-align: center;
+    }
+
+    select {
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 6px;
+      width: 100%;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background-color: #1e90ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4682b4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fluxograma fixo -->
+  <div class="flow">
+    <div class="triangle-container">
+      <div class="triangle-start"></div>
+      <div class="triangle-label">Start</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">1</div>
+      <div class="step-label">Directive Variables</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">2</div>
+      <div class="step-label">MUSE</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step">3</div>
+      <div class="step-label">ARTEMIS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="step-container">
+      <div class="step active">4</div>
+      <div class="step-label">DELOS</div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="triangle-container">
+        <div class="triangle-end"></div>
+      <div class="triangle-label">End</div>
+    </div>
+  </div>
+
+<h1>Select Fare Type</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Pro/Con Analysis</th>
+      <th>Selection</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Fixed Fare</strong><br/>Passengers pay the same price regardless of trip length.</td>
+      <td id="fixed_analysis"></td>
+      <td rowspan="2">
+        <select id="selection">
+          <option value="">Select...</option>
+          <option value="Fixed Fare">Fixed Fare</option>
+          <option value="Distance_Based Fare">Distance_Based Fare</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Distance-Based Fare</strong><br/>The price varies depending on how far the passenger travels.</td>
+      <td id="distance_analysis"></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="button-container">
+    <button class="back-button" onclick="window.location.href='DELOS_7.html'">BACK</button>
+  <button onclick="saveSelection()">NEXT</button>
+</div>
+
+<script>
+  function classify(value) {
+    if (value >= 2.5) return "Majority Pro";
+    if (value >= 0.5) return "Somewhat Pro";
+    if (value > -0.5) return "Neutral";
+    if (value >= -2) return "Somewhat Con";
+    return "Majority Con";
+  }
+
+  window.onload = () => {
+    const fixed = parseFloat(localStorage.getItem("Fixed_Fare") || 0);
+    const distance = parseFloat(localStorage.getItem("Distance_Based_Fare") || 0);
+
+    document.getElementById("fixed_analysis").innerText = classify(fixed);
+    document.getElementById("distance_analysis").innerText = classify(distance);
+  }
+
+  function saveSelection() {
+    const selection = document.getElementById("selection").value;
+    if (!selection) {
+      alert("Please select one option before continuing.");
+      return;
+    }
+    localStorage.setItem("Selected_Fare_Type", selection);
+    window.location.href = 'APOLO_final.html';
+  }
+</script>
+
+</body>
+</html>
